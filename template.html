@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+    <form id="triggerForm">
+      <label for="timer">Select Timer:</label>
+      <select id="timer" name="timer" onchange="updateFrequencyOptions()">
+        <option value="minute">Minute Timer</option>
+        <option value="hour">Hour Timer</option>
+      </select>
+      <br><br>
+      <label for="frequency">Select Frequency:</label>
+      <select id="frequency" name="frequency">
+        <!-- Options will be dynamically populated -->
+      </select>
+      <br><br>
+      <input type="button" value="Submit" onclick="submitForm()">
+    </form>
+
+    <script>
+      function updateFrequencyOptions() {
+        var timer = document.getElementById('timer').value;
+        var frequency = document.getElementById('frequency');
+        frequency.innerHTML = ''; // Clear current options
+
+        if (timer === 'minute') {
+          addOption(frequency, 'Every Minute', 1);
+          addOption(frequency, 'Every 5 Minutes', 5);
+          addOption(frequency, 'Every 10 Minutes', 10);
+          addOption(frequency, 'Every 15 Minutes', 15);
+          addOption(frequency, 'Every 30 Minutes', 30);
+        } else if (timer === 'hour') {
+          addOption(frequency, 'Every Hour', 1);
+          addOption(frequency, 'Every 2 Hours', 2);
+          addOption(frequency, 'Every 4 Hours', 4);
+          addOption(frequency, 'Every 6 Hours', 6);
+          addOption(frequency, 'Every 8 Hours', 8);
+          addOption(frequency, 'Every 12 Hours', 12);
+        }
+      }
+
+      function addOption(select, text, value) {
+        var option = document.createElement('option');
+        option.text = text;
+        option.value = value;
+        select.add(option);
+      }
+
+      function submitForm() {
+        var timer = document.getElementById('timer').value;
+        var frequency = document.getElementById('frequency').value;
+        google.script.run.setupTrigger(parseInt(frequency), timer);
+        google.script.host.close();
+      }
+
+      // Initialize the form with default values
+      updateFrequencyOptions();
+    </script>
+  </body>
+</html>
