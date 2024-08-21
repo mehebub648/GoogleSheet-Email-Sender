@@ -129,3 +129,33 @@ function processEmails() {
     }
   }
 }
+
+
+
+function replaceVariables(message, headers, row) {
+  if(!trj()){
+    return;
+  }
+  var replacedMessage = message;
+  for (var i = 0; i < headers.length; i++) {
+    var variable = '{{' + headers[i] + '}}';
+    var value = row[i];
+    if(replacedMessage.includes(variable) && value == ""){
+      return null;
+    }
+    replacedMessage = replacedMessage.replace(new RegExp(variable, 'g'), value);
+  }
+  return replacedMessage;
+}
+
+
+
+function sendMessage(subject, body, fromEmail, recipient){
+  try{
+    GmailApp.sendEmail(recipient, subject, body, { from: fromEmail });
+    return true;
+  }catch(err){
+    Logger.log(err);
+    return false;
+  }
+}
