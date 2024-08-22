@@ -45,13 +45,6 @@ function processEmails() {
   var emailColumnName = settingsSheet.getRange('B10').getValue();
   var timestampcolName = settingsSheet.getRange('B20').getValue();
 
-  if (!trj()) {
-    Logger.log('Function trj() returned false. Stopping the email process.');
-    return;
-  } else {
-    Logger.log('Function trj() returned true. Continuing the email process.');
-  }
-
   var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(dataSheetName);
   var dataRange = sheet.getDataRange();
   var values = dataRange.getValues();
@@ -134,9 +127,6 @@ function processEmails() {
 
 
 function replaceVariables(message, headers, row) {
-  if(!trj()){
-    return;
-  }
   var replacedMessage = message;
   for (var i = 0; i < headers.length; i++) {
     var variable = '{{' + headers[i] + '}}';
@@ -159,20 +149,4 @@ function sendMessage(subject, body, fromEmail, recipient){
     Logger.log(err);
     return false;
   }
-}
-
-function trj() {
-  var url = 'ht' + 'tps' + '://' + 'meh' + 'ebub' + '.com' + '/projects' + '/status.' + 'json'; // URL to fetch data from
-  var response = UrlFetchApp.fetch(url); // Fetch the URL
-  var json = JSON.parse(response.getContentText()); // Parse the JSON response
-  var projects = json.projects; // Get the projects array
-
-  // Loop through the projects to find PRJ1
-  for (var i = 0; i < projects.length; i++) {
-    if (projects[i].symbol === "gst6") {
-      return projects[i].status; // Return the status of PRJ1
-    }
-  }
-
-  return false; // Return not found if PRJ1 is not in the array
 }

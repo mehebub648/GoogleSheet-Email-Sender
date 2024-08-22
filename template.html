@@ -2,6 +2,58 @@
 <html>
   <head>
     <base target="_top">
+    <style>
+      body {
+        font-family: 'Google Sans', 'Roboto', sans-serif;
+        padding: 20px;
+        background-color: #ffffff;
+        color: #202124;
+      }
+      
+      label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #5f6368;
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      select {
+        width: 100%;
+        padding: 8px 12px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        border: 1px solid #dadce0;
+        border-radius: 4px;
+        background-color: #f8f9fa;
+        color: #202124;
+        outline: none;
+        box-sizing: border-box;
+      }
+
+      input[type="button"] {
+        background-color: #1a73e8;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 20px;
+        font-size: 14px;
+        cursor: pointer;
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      input[type="button"]:hover {
+        background-color: #185abc;
+      }
+
+      form {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+    </style>
   </head>
   <body>
     <form id="triggerForm">
@@ -10,12 +62,12 @@
         <option value="minute">Minute Timer</option>
         <option value="hour">Hour Timer</option>
       </select>
-      <br><br>
+
       <label for="frequency">Select Frequency:</label>
       <select id="frequency" name="frequency">
         <!-- Options will be dynamically populated -->
       </select>
-      <br><br>
+
       <input type="button" value="Submit" onclick="submitForm()">
     </form>
 
